@@ -1,0 +1,51 @@
+
+/**
+*  !Changing the default styles of browser . 
+**/
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body{
+    font-family: serif;
+}
+
+
+/**
+*  !navbar styles are here ! 
+**/
+
+.navbar{
+    background-color: #669bbc;
+    color: aliceblue;
+    padding: 25px 60px;
+
+    display: flex;
+    justify-content: space-between;
+}
+.cart{
+    background-color: #fff;
+    color: #669bbc;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 30px;
+    position: relative;
+}
+
+#cart-amount{
+    background-color: red;
+    color: #fff;
+    font-size: 25px;
+    border-radius: 5px;
+    padding: 0 3px;
+    /* now if you want to hang the cart amoount on the cart , you have to use the position = absolute property . 
+     */
+    position: absolute; 
+    top: -10px;
+    left: 34px;
+
+}
