@@ -26,13 +26,15 @@ shopItemData = [{
     desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
     img:'images/img-4.jpg'
 }]
-
-basket = []
+// setting the basket and getting items from the localStorage to save the data 
+basket =JSON.parse(localStorage.getItem('data')) || []
 
 generateItem = () => {
     
     return shop.innerHTML = shopItemData.map((x)=>{
         let {id,name,price,desc,img} = x 
+        let search = basket.find((x)=>x.id === id ) || []
+        //we are gonna change the default zero to the saved quantity form the localStorage . 
         return `<div id = product-id-${id} class="item">
             <img src="${img}" width=220>
             <div class="details">
@@ -42,7 +44,7 @@ generateItem = () => {
                     <h3>${price}</h3>
                     <div class="howMany">
                         <i onclick = "decrement(${id})" class="bi bi-dash-lg"></i>
-                        <div id = ${id} class="quantity">0</div>
+                        <div id = ${id} class="quantity">${ search.item === undefined ? 0 : search.item}</div>        
                         <i onclick = "increment(${id})" class="bi bi-plus-lg"></i>
                     </div>
                     
@@ -77,7 +79,7 @@ decrement = (id) => {
     let search = basket.find((x)=>{
         return x.id === selectedItem.id
     })
-    
+    if (search===undefined) return ;  // we are doing this , because we are getting a error everytime , we are doing minus when we have nothing in the basket . 
     if( search.item === 0){
         return ; 
     }
@@ -85,7 +87,9 @@ decrement = (id) => {
         search.item -= 1    
     }
 
+
     update(selectedItem.id);
+
     
 }
 update = (id) => {
@@ -100,4 +104,13 @@ let calculation = () => {
     allItems = basket.map((el)=>el.item).reduce((acc,el) => acc + el )
     document.getElementById('cart-amount').innerHTML = allItems
     // now if you refresh the page , all data of cartAmount , howMany that we have selected will be gone  .
+    // for this we will use localStorage of browser : it will save your progress , even if you refresh the page or the Browser , your data will be saved . 
+    localStorage.setItem('data',JSON.stringify(basket))
+    // it is just setting the items inside the localStorage , now , we have to retrive the data from localStorage to use it . 
+    // we will do some changes with the basket itself , what we are gonna do is that , we will set the basket to the data that we have stored in the localStorage  .
+    
+    // NOTE : it will still just saves the data in localStorage not ,  in the innerHTML of our itmes or quantity. 
+
 }
+// we are doing this , because , individual item data gets stored and solved even if you refresh the page , but the cart amount does not get stored , so we will just call it every time the page is running or doing somethng 
+calculation()  

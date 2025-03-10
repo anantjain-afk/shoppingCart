@@ -91,7 +91,10 @@ body{
     justify-content: space-between;
     align-items: center;
 }
-
+/* we can select all the icons directly by using the i property like this .  */
+i{
+    cursor: pointer;
+}
 .howMany{
     display: flex;
     gap: 8px;
