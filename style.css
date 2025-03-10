@@ -92,7 +92,7 @@ body{
     align-items: center;
 }
 
-.quantity{
+.howMany{
     display: flex;
     gap: 8px;
 }

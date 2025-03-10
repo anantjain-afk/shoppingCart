@@ -40,10 +40,10 @@ generateItem = () => {
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
                 <div class="price-quantity">
                     <h3>${price}</h3>
-                    <div class="quantity">
-                        <i onclick = "decrement()" class="bi bi-dash-lg"></i>
+                    <div class="howMany">
+                        <i onclick = "decrement(${id})" class="bi bi-dash-lg"></i>
                         <div id = ${id} class="quantity">0</div>
-                        <i onclick = "increment()" class="bi bi-plus-lg"></i>
+                        <i onclick = "increment(${id})" class="bi bi-plus-lg"></i>
                     </div>
                     
                 </div>
@@ -53,12 +53,51 @@ generateItem = () => {
 }
 generateItem()
 
-increment = () => {
+increment = (id) => {
+    let selectedItem = id 
+    let search = basket.find((x)=>{
+        return x.id === selectedItem.id
+    })
+    if( search === undefined){
+        basket.push({
+            id : selectedItem.id, 
+            item : 1, 
+        })
+    }
+    else{
+        search.item += 1    
+    }
+
+    update(selectedItem.id);
+    
 
 }
-decrement = () => {
+decrement = (id) => {
+    let selectedItem = id 
+    let search = basket.find((x)=>{
+        return x.id === selectedItem.id
+    })
+    
+    if( search.item === 0){
+        return ; 
+    }
+    else{
+        search.item -= 1    
+    }
+
+    update(selectedItem.id);
+    
+}
+update = (id) => {
+    search = basket.find((y)=>{
+        return y.id === id 
+    })
+    document.getElementById(id).innerHTML = search.item
+    calculation()
 
 }
-update = () => {
-
+let calculation = () => {
+    allItems = basket.map((el)=>el.item).reduce((acc,el) => acc + el )
+    document.getElementById('cart-amount').innerHTML = allItems
+    // now if you refresh the page , all data of cartAmount , howMany that we have selected will be gone  .
 }
