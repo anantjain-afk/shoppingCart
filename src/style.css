@@ -95,6 +95,10 @@ body{
 i{
     cursor: pointer;
 }
+a{
+    text-decoration: none;
+    color: #fff;
+}
 .howMany{
     display: flex;
     gap: 8px;
@@ -104,4 +108,67 @@ i{
 }
 .bi-plus-lg{
     color: green;
+}
+
+/** 
+* ! Styles for label and some buttons .
+ **/
+.text-center{
+    text-align: center;
+    margin-bottom: 20px;
+
+     
+}
+.homeBtn{
+    background-color: #212529;
+    color: white;
+    border: none;
+    padding: 6px; 
+    border-radius: 3px ;
+    cursor: pointer;
+    margin-top: 10px;
+
+} 
+.title-price-x i {
+    color : red ;
+    font-weight: bold;
+}
+
+/** 
+*  ! style rules for shopping cart  
+**/
+.shopping-cart{ 
+    display: grid;
+    grid-template-columns: repeat(1,320px);
+    justify-content: center;
+    gap: 15px;
+}
+
+/** 
+*  ! style rules for shopping cart item 
+**/
+
+.cart-item{
+    border : 2px solid black ;
+    border-radius: 5px;
+    display: flex;
+    
+}
+.title-price-x{
+    display: flex;
+    justify-content: space-between;
+    width: 195px;
+
+}
+.title-price{
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+.cart-item-price{
+    border: 1px;
+    background-color: #212529;
+    color : white;
+    border-radius: 4px;
+    padding: 3px;
 }

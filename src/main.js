@@ -1,31 +1,6 @@
 shop = document.getElementById('shop')
 
-shopItemData = [{
-    id : 'adsaasd',
-    name : "Casual shirt",
-    price : '$ 45',
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-    img:'images/img-1.jpg'
 
-},{
-    id : 'grbdvgfdb',
-    name : "Office Shirt",
-    price : '$ 100',
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-    img:'images/img-2.jpg'
-},{
-    id : 'agdafdafd',
-    name : "T Shirt",
-    price : '$ 30',
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-    img:'images/img-3.jpg'
-},{
-    id : 'adsadasdasdsaasd',
-    name : "Mens Suit",
-    price : '$ 300',
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-    img:'images/img-4.jpg'
-}]
 // setting the basket and getting items from the localStorage to save the data 
 basket =JSON.parse(localStorage.getItem('data')) || []
 
@@ -42,11 +17,7 @@ generateItem = () => {
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
                 <div class="price-quantity">
                     <h3>${price}</h3>
-                    <div class="howMany">
-                        <i onclick = "decrement(${id})" class="bi bi-dash-lg"></i>
-                        <div id = ${id} class="quantity">${ search.item === undefined ? 0 : search.item}</div>        
-                        <i onclick = "increment(${id})" class="bi bi-plus-lg"></i>
-                    </div>
+                     
                     
                 </div>
             </div>
@@ -71,6 +42,8 @@ increment = (id) => {
     }
 
     update(selectedItem.id);
+    localStorage.setItem("data",JSON.stringify(basket)) ;
+    
     
 
 }
@@ -86,9 +59,12 @@ decrement = (id) => {
     else{
         search.item -= 1    
     }
-
-
     update(selectedItem.id);
+    
+   basket = basket.filter(x => {
+       return x.item != 0 
+   })
+    localStorage.setItem("data",JSON.stringify(basket)) ;
 
     
 }
