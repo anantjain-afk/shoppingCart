@@ -8,6 +8,8 @@ let calculation = () => {
     allItems = basket.map((el) => el.item).reduce((acc, el) => acc + el);
     document.getElementById("cart-amount").innerHTML = allItems;
     localStorage.setItem("data", JSON.stringify(basket));
+  }else{
+    document.getElementById("cart-amount").innerHTML = 0
   }
 };
 // we are doing this , because , individual item data gets stored and solved even if you refresh the page , but the cart amount does not get stored , so we will just call it every time the page is running or doing somethng
@@ -42,14 +44,12 @@ let generateFinalCart = () => {
                 <div class="howMany">
                         <i onclick = "decrement(${id})" class="bi bi-dash-lg"></i>
                         <div id = ${id} class="quantity"> 
-
+                            ${item}
                         </div>        
                         <i onclick = "increment(${id})" class="bi bi-plus-lg"></i>
                 </div>
+                <h3>$ ${item * search.price}</h3>
       
-               
-      
-                
               </div>
             </div>
             `;
@@ -57,6 +57,7 @@ let generateFinalCart = () => {
       .join(""));
   }
 };
+generateFinalCart();
 increment = (id) => {
     let selectedItem = id 
     let search = basket.find((x)=>{
@@ -71,7 +72,7 @@ increment = (id) => {
     else{
         search.item += 1    
     }
-
+    generateFinalCart();
     update(selectedItem.id);
     localStorage.setItem("data",JSON.stringify(basket)) ;
     
@@ -92,9 +93,10 @@ decrement = (id) => {
     }
     update(selectedItem.id);
     
-   basket = basket.filter(x => {
-       return x.item != 0 
-   })
+    basket = basket.filter(x => {
+        return x.item != 0 
+    })
+    generateFinalCart();
     localStorage.setItem("data",JSON.stringify(basket)) ;
 
     
@@ -105,7 +107,46 @@ update = (id) => {
     })
     document.getElementById(id).innerHTML = search.item
     calculation()
+    TotalAmount();
 
 }
-generateFinalCart();
 
+removeItem = (id) => {
+    let selectedItem = id 
+    // console.log(basket)
+    basket = basket.filter((x)=>{
+        return x.id !== selectedItem.id 
+    })
+    // console.log(basket)
+    generateFinalCart();
+    TotalAmount();
+    calculation();
+    localStorage.setItem("data",JSON.stringify(basket)) ;
+
+}
+let clearCart = () => {
+    basket = [];
+    calculation();
+    generateFinalCart();
+    localStorage.setItem("data", JSON.stringify(basket));
+  };
+let TotalAmount = () => {
+    if (basket.length !== 0) {
+      let amount = basket
+        .map((x) => {
+          let { item, id } = x;
+          let search = shopItemData.find((y) => y.id === id) || [];
+  
+          return item * search.price;
+        })
+        .reduce((x, y) => x + y, 0);
+      // console.log(amount);
+      label.innerHTML = `
+      <h2>Total Bill : $ ${amount}</h2>
+      <button class="checkout">Checkout</button>
+      <button onclick="clearCart()" class="removeAll">Clear Cart</button>
+      `;
+    } else return;
+  };
+  
+  TotalAmount();

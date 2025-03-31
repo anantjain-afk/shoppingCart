@@ -17,7 +17,13 @@ generateItem = () => {
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
                 <div class="price-quantity">
                     <h3>${price}</h3>
-                     
+                    <div class="howMany">
+                        <i onclick="decrement(${id})" class="bi bi-dash-lg"></i>
+                        <div id=${id} class="quantity">
+                        ${search.item === undefined ? 0 : search.item}
+                        </div>
+                        <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
+                    </div>
                     
                 </div>
             </div>
@@ -77,7 +83,7 @@ update = (id) => {
 
 }
 let calculation = () => {
-    allItems = basket.map((el)=>el.item).reduce((acc,el) => acc + el )
+    allItems = basket.map((el)=>el.item).reduce((acc,el) => acc + el  , 0 )
     document.getElementById('cart-amount').innerHTML = allItems
     // now if you refresh the page , all data of cartAmount , howMany that we have selected will be gone  .
     // for this we will use localStorage of browser : it will save your progress , even if you refresh the page or the Browser , your data will be saved . 
