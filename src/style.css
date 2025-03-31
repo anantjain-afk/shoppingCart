@@ -80,6 +80,10 @@ body{
     border: 2px solid #669bbc;
     border-radius: 4px;
 }
+.itme img {
+    width: 100%;
+    border-radius: 2px 2px 0px 0px 
+}
 .details{
     display: flex;
     flex-direction: column;
